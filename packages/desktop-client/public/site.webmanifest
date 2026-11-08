@@ -1,7 +1,7 @@
 {
-  "name": "Actual",
-  "short_name": "Actual",
-  "description": "A local-first personal finance tool",
+  "name": "Fiwell v2",
+  "short_name": "Fiwell v2",
+  "description": "Um aplicativo de orçamento e controle financeiro eficiente para ajudar você gerenciar suas finanças e dar adeus às planilhas. Baseado no projeto de código aberto Actual Budget sob a licença MIT",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -82,8 +82,8 @@
       "sizes": "350x600"
     }
   ],
-  "theme_color": "#5c3dbb",
-  "background_color": "#5c3dbb",
+  "theme_color": "#334E68",
+  "background_color": "#334E68",
   "display": "standalone",
   "start_url": "./"
 }
