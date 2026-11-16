@@ -2,9 +2,9 @@
 import React, { Fragment, useEffect, useEffectEvent } from 'react';
 import { useLocation } from 'react-router';
 
-import { send } from '@actual-app/core/platform/client/connection';
 import * as monthUtils from '@actual-app/core/shared/months';
 
+import { stopWatchingGoCardlessLink } from '#gocardless';
 import { useMetadataPref } from '#hooks/useMetadataPref';
 import { useModalState } from '#hooks/useModalState';
 import { SheetNameProvider } from '#hooks/useSheetName';
@@ -215,7 +215,7 @@ export function Modals() {
               {...modal.options}
               onClose={() => {
                 modal.options.onClose?.();
-                void send('gocardless-poll-web-token-stop');
+                stopWatchingGoCardlessLink();
               }}
             />
           );
