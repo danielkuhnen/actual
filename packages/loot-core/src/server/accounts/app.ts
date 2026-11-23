@@ -68,6 +68,7 @@ export type AccountHandlers = {
   'account-move': typeof moveAccount;
   'secret-set': typeof setSecret;
   'secret-check': typeof checkSecret;
+  'gocardless-check-web-token': typeof checkGoCardlessWebToken;
   'gocardless-poll-web-token': typeof pollGoCardlessWebToken;
   'gocardless-poll-web-token-stop': typeof stopGoCardlessWebTokenPolling;
   'gocardless-status': typeof goCardlessStatus;
@@ -792,6 +793,63 @@ async function checkSecret(name: string) {
   }
 }
 
+type GoCardlessWebTokenCheck =
+  | { status: 'linked'; data: GoCardlessToken }
+  | { status: 'pending' }
+  | { error: 'unknown'; message?: string };
+
+// Asks the server once whether the bank link for this requisition has
+// completed. A request that never reached the server (the browser often
+// drops requests while it suspends a background tab) is reported as still
+// pending, so the caller simply asks again.
+async function checkGoCardlessWebToken({
+  requisitionId,
+}: {
+  requisitionId: string;
+}): Promise<GoCardlessWebTokenCheck> {
+  const userToken = await asyncStorage.getItem('user-token');
+  if (!userToken) return { error: 'unknown' };
+
+  const serverConfig = getServer();
+  if (!serverConfig) {
+    throw new Error('Failed to get server config.');
+  }
+
+  let data;
+  try {
+    data = await post(
+      serverConfig.GOCARDLESS_SERVER + '/get-accounts',
+      {
+        requisitionId,
+      },
+      {
+        'X-ACTUAL-TOKEN': userToken,
+      },
+    );
+  } catch (error) {
+    if (error instanceof PostError && error.reason === 'network-failure') {
+      logger.warn('Network failure while checking gocardless link, retrying');
+      return { status: 'pending' };
+    }
+    logger.error('Failed checking gocardless link:', error);
+    return {
+      error: 'unknown',
+      message: error instanceof PostError ? error.reason : undefined,
+    };
+  }
+
+  if (!data) {
+    return { status: 'pending' };
+  }
+
+  if (data.error_code) {
+    logger.error('Failed linking gocardless account:', data);
+    return { error: 'unknown', message: data.error_type };
+  }
+
+  return { status: 'linked', data };
+}
+
 let stopPolling = false;
 
 async function pollGoCardlessWebToken({
@@ -822,28 +880,12 @@ async function pollGoCardlessWebToken({
       return;
     }
 
-    const serverConfig = getServer();
-    if (!serverConfig) {
-      throw new Error('Failed to get server config.');
-    }
+    const result = await checkGoCardlessWebToken({ requisitionId });
 
-    const data = await post(
-      serverConfig.GOCARDLESS_SERVER + '/get-accounts',
-      {
-        requisitionId,
-      },
-      {
-        'X-ACTUAL-TOKEN': userToken,
-      },
-    );
-
-    if (data) {
-      if (data.error_code) {
-        logger.error('Failed linking gocardless account:', data);
-        cb({ status: 'unknown', message: data.error_type });
-      } else {
-        cb({ status: 'success', data });
-      }
+    if ('error' in result) {
+      cb({ status: 'unknown', message: result.message });
+    } else if (result.status === 'linked') {
+      cb({ status: 'success', data: result.data });
     } else {
       setTimeout(() => getData(cb), 3000);
     }
@@ -1807,6 +1849,7 @@ app.method('account-reopen', mutator(undoable(reopenAccount)));
 app.method('account-move', mutator(undoable(moveAccount)));
 app.method('secret-set', setSecret);
 app.method('secret-check', checkSecret);
+app.method('gocardless-check-web-token', checkGoCardlessWebToken);
 app.method('gocardless-poll-web-token', pollGoCardlessWebToken);
 app.method('gocardless-poll-web-token-stop', stopGoCardlessWebTokenPolling);
 app.method('gocardless-status', goCardlessStatus);
