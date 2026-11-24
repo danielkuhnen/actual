@@ -2,7 +2,12 @@
  * Custom theme utilities: fetch, validation, and storage helpers.
  */
 
-export const BASE_THEME_OPTIONS = ['light', 'dark', 'midnight'] as const;
+export const BASE_THEME_OPTIONS = [
+  'fiwell',
+  'light',
+  'dark',
+  'midnight',
+] as const;
 export type BaseTheme = (typeof BASE_THEME_OPTIONS)[number];
 
 export function isBaseTheme(value: string): value is BaseTheme {
