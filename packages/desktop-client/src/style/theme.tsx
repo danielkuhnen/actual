@@ -34,7 +34,7 @@ export const darkThemeOptions = Object.entries({
 }).map(([key, { name }]) => [key, name] as [DarkTheme, string]);
 
 export function useTheme() {
-  const [theme = 'auto', setThemePref] = useGlobalPref('theme');
+  const [theme = 'light', setThemePref] = useGlobalPref('theme');
   return [theme, setThemePref] as const;
 }
 

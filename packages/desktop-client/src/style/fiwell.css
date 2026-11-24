@@ -1,0 +1,105 @@
+/*
+ * Fiwell brand colors, layered on top of Actual's light theme.
+ *
+ * Ported from the Fiwell v1 light theme (lagoom-br/actual). Kept in its own
+ * file, as plain token overrides, so that upstream changes to the built-in
+ * themes merge without conflicts. Only tokens that differ from the light
+ * theme are listed here; everything else falls through to it.
+ */
+:root {
+  --fiwell-beige100: #f1f0f0;
+  --fiwell-beige500: #e3c39d;
+  --fiwell-beige700: #a68868;
+  --fiwell-lavender-grey: #b9bccd;
+  --fiwell-ink: #312f2e;
+  --fiwell-green: #35a18a;
+  --fiwell-green-hover: #2d8d79;
+  --fiwell-green-disabled: #67ab99;
+
+  /* Page: flat light beige, no decorative lines */
+  --color-pageBackground: var(--fiwell-beige100);
+  --color-pageBackgroundTopLeft: var(--fiwell-beige100);
+  --color-pageBackgroundBottomRight: var(--fiwell-beige100);
+  --color-pageBackgroundLineTop: var(--fiwell-beige100);
+  --color-pageBackgroundLineMid: var(--fiwell-beige100);
+  --color-pageBackgroundLineBottom: var(--fiwell-beige100);
+  --color-pageTextPositive: var(--palette-green600);
+  --color-pageTextLink: var(--palette-navy600);
+  --color-pageTextLinkLight: var(--palette-navy300);
+
+  --color-cardBorder: var(--palette-navy900);
+
+  /* Tables */
+  --color-tableHeaderText: var(--fiwell-ink);
+  --color-tableBorderSelected: var(--palette-navy800);
+  --color-tableBorderHover: var(--palette-navy700);
+  --color-tableRowBackgroundHighlight: var(--palette-navy150);
+
+  /* Sidebar: navy with light text */
+  --color-sidebarBackground: var(--palette-navy800);
+  --color-sidebarItemBackgroundHover: var(--palette-navy700);
+  --color-sidebarItemAccentSelected: var(--palette-white);
+  --color-sidebarItemText: var(--fiwell-lavender-grey);
+  --color-sidebarItemTextSelected: var(--palette-white);
+
+  /* Settings navigation */
+  --color-settingsNavItemAccentSelected: var(--palette-navy700);
+  --color-settingsNavItemTextSelected: var(--palette-navy800);
+
+  /* Menus and autocomplete */
+  --color-menuItemTextSelected: var(--palette-navy300);
+  --color-menuBorderHover: var(--palette-navy100);
+  --color-menuAutoCompleteBackgroundHover: var(--palette-navy700);
+  --color-menuAutoCompleteTextHeader: var(--fiwell-beige500);
+
+  /* Mobile: navy header, also used for the browser status bar */
+  --color-mobileHeaderBackground: var(--palette-navy700);
+  --color-mobileNavItemSelected: var(--palette-navy600);
+  --color-mobileAccountText: var(--palette-navy800);
+  --color-mobileTransactionSelected: var(--palette-navy800);
+  --color-mobileConfigServerViewTheme: var(--palette-navy800);
+
+  --color-markdownNormal: var(--palette-navy150);
+  --color-markdownDark: var(--palette-navy600);
+  --color-markdownLight: var(--palette-navy100);
+
+  /* Buttons: green primary, beige selected menu button */
+  --color-buttonMenuSelectedText: var(--palette-white);
+  --color-buttonMenuSelectedBackground: var(--fiwell-beige700);
+  --color-buttonMenuSelectedBackgroundHover: var(--fiwell-beige500);
+  --color-buttonPrimaryBackground: var(--fiwell-green);
+  --color-buttonPrimaryBackgroundHover: var(--fiwell-green-hover);
+  --color-buttonPrimaryDisabledBackground: var(--fiwell-green-disabled);
+  --color-buttonNormalSelectedBackground: var(--palette-navy600);
+
+  --color-datePickerRangeBackground: var(--palette-navy150);
+
+  --color-upcomingBackground: var(--palette-navy100);
+  --color-upcomingText: var(--palette-navy900);
+  --color-upcomingBorder: var(--palette-navy700);
+
+  /* Forms */
+  --color-formLabelText: var(--palette-navy600);
+  --color-formLabelBackground: var(--palette-navy200);
+  --color-formInputBackgroundSelection: var(--palette-navy800);
+  --color-formInputBorderSelected: var(--palette-navy800);
+  --color-formInputShadowSelected: var(--palette-navy300);
+  --color-formInputTextHighlight: var(--palette-navy200);
+  --color-checkboxBackgroundSelected: var(--palette-navy700);
+  --color-checkboxBorderSelected: var(--palette-navy700);
+  --color-checkboxShadowSelected: var(--palette-navy300);
+  --color-checkboxToggleBackgroundSelected: var(--palette-navy800);
+
+  --color-pillTextHighlighted: var(--palette-navy800);
+  --color-pillBackgroundSelected: var(--palette-navy150);
+  --color-pillTextSelected: var(--palette-navy900);
+  --color-pillBorderSelected: var(--palette-navy700);
+
+  --color-noteTagBackground: var(--palette-navy150);
+  --color-noteTagBackgroundHover: var(--palette-navy200);
+  --color-noteTagDefault: var(--palette-navy150);
+
+  --color-budgetOtherMonth: var(--palette-navy50);
+
+  --color-floatingActionBarBackground: var(--palette-navy700);
+}
