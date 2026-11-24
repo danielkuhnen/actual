@@ -28,7 +28,6 @@ import { loadGlobalPrefs } from '#prefs/prefsSlice';
 import { useDispatch, useSelector, useStore } from '#redux';
 import {
   CustomThemeStyle,
-  FiwellThemeStyle,
   hasHiddenScrollbars,
   ThemeStyle,
   useTheme,
@@ -241,7 +240,6 @@ export function App() {
                         <AppInner />
                       </ErrorBoundary>
                       <ThemeStyle />
-                      <FiwellThemeStyle />
                       <CustomThemeStyle />
                       <ErrorBoundary FallbackComponent={FatalError}>
                         <Modals />

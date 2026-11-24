@@ -16,8 +16,10 @@ import {
   usesRedesignSidebarPalette,
   validateThemeCssSafely,
 } from './customThemes';
+import { fiwellThemeCss } from './fiwell';
 
 const themes = {
+  fiwell: { name: 'Fiwell', colors: fiwellThemeCss },
   light: { name: 'Light', colors: lightThemeCss },
   dark: { name: 'Dark', colors: darkThemeCss },
   midnight: { name: 'Midnight', colors: midnightThemeCss },
@@ -34,7 +36,7 @@ export const darkThemeOptions = Object.entries({
 }).map(([key, { name }]) => [key, name] as [DarkTheme, string]);
 
 export function useTheme() {
-  const [theme = 'light', setThemePref] = useGlobalPref('theme');
+  const [theme = 'fiwell', setThemePref] = useGlobalPref('theme');
   return [theme, setThemePref] as const;
 }
 

@@ -192,12 +192,13 @@ async function loadGlobalPrefs(): Promise<GlobalPrefs> {
     keyId: encryptKey && JSON.parse(encryptKey).id,
     language,
     theme:
+      theme === 'fiwell' ||
       theme === 'light' ||
       theme === 'dark' ||
       theme === 'auto' ||
       theme === 'midnight'
         ? theme
-        : 'light',
+        : 'fiwell',
     preferredDarkTheme:
       preferredDarkTheme === 'dark' || preferredDarkTheme === 'midnight'
         ? preferredDarkTheme
